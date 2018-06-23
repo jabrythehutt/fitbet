@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth.service';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -9,14 +9,23 @@ import {AuthService} from '../auth.service';
 })
 export class CreateChallengeComponent implements OnInit {
 
-  constructor(private authService: AuthService) {
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder) {
 
   }
 
+
+
   ngOnInit() {
-    if (!this.authService.isAuthenticated()) {
-      this.authService.login();
-    }
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 
 }

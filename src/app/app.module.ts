@@ -5,7 +5,15 @@ import { AppComponent } from './app.component';
 import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {MatStepperModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatStepperModule,
+  MatToolbarModule
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,6 +21,12 @@ import {MatStepperModule, MatToolbarModule} from '@angular/material';
     CreateChallengeComponent
   ],
   imports: [
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatStepperModule,
     MatToolbarModule,
     HttpClientModule,

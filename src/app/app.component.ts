@@ -8,7 +8,7 @@ import {AuthService} from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'FitBet';
+  title = 'Fit Bet';
   constructor(private authService: AuthService) {
     this.authService.handleAuthentication();
   }

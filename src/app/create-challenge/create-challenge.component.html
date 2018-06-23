@@ -1,3 +1,36 @@
-<p>
-  Create a challenge
-</p>
+<!--<mat-toolbar>
+  Place your bet
+</mat-toolbar>-->
+<mat-vertical-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Set the step target</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Number of steps" formControlName="firstCtrl" required type="number">
+      </mat-form-field>
+<!--      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>-->
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Set your bet amount</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Bet amount" formControlName="secondCtrl" required type="number">
+      </mat-form-field>
+<!--      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>-->
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+<!--    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>-->
+  </mat-step>
+</mat-vertical-stepper>
