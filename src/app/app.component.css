@@ -6,3 +6,11 @@ body {
 .challenge {
   margin: 20px;
 }
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.sign-out {
+
+}

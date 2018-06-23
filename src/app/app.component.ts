@@ -14,9 +14,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.authenticated) {
-      this.authService.login();
-    }
+    setTimeout(() => {
+      if (!this.authenticated) {
+        this.authService.login();
+      }
+    }, 200);
+
+  }
+
+  signOut() {
+    this.authService.logout();
   }
 
   get authenticated(): boolean {

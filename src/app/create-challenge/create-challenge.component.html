@@ -2,8 +2,8 @@
   Place your bet
 </mat-toolbar>-->
 <mat-vertical-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
+  <mat-step [stepControl]="stepsFormGroup">
+    <form [formGroup]="stepsFormGroup">
       <ng-template matStepLabel>Set the step target</ng-template>
       <mat-form-field>
         <input matInput placeholder="Number of steps" formControlName="firstCtrl" required type="number">
@@ -13,8 +13,8 @@
       </div>-->
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="amountFormGroup">
+    <form [formGroup]="amountFormGroup">
       <ng-template matStepLabel>Set your bet amount</ng-template>
       <mat-form-field>
         <input matInput placeholder="Bet amount" formControlName="secondCtrl" required type="number">
@@ -25,12 +25,34 @@
       </div>-->
     </form>
   </mat-step>
+  <mat-step [stepControl]="startDateFormGroup">
+    <form [formGroup]="startDateFormGroup">
+      <ng-template matStepLabel>Set the challenge start date</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Start date" formControlName="thirdCtrl" required type="datetime-local">
+      </mat-form-field>
+      <!--      <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>-->
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="endDateFormGroup">
+    <form [formGroup]="endDateFormGroup">
+      <ng-template matStepLabel>Set the challenge end date</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="End date" formControlName="fourthCtrl" required type="datetime-local">
+      </mat-form-field>
+      <!--      <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>-->
+    </form>
+  </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-<!--    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>-->
+  <div>
+      <button mat-button (click)="submitChallenge()">Go</button>
+    </div>
   </mat-step>
 </mat-vertical-stepper>
