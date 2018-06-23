@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
 import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {MatStepperModule, MatToolbarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -11,8 +13,11 @@ import {HttpClientModule} from '@angular/common/http';
     CreateChallengeComponent
   ],
   imports: [
+    MatStepperModule,
+    MatToolbarModule,
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

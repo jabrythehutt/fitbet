@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
@@ -17,7 +16,7 @@ export class AuthService {
     domain: environment.auth0Domain,
     responseType: 'token id_token',
     audience: environment.auth0Audience,
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'http://localhost:4200',
     scope: 'openid'
   });
 
