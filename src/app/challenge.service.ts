@@ -24,8 +24,10 @@ export class ChallengeService {
 
   async createChallenge(request: CreateChallengeRequest) {
     const FitbitChallenges = await this.web3Service.artifactsToContract(fitbitChallengesArtifacts);
-    const deployedChallenge = await FitbitChallenges.deployed();
-    console.log(deployedChallenge);
+    console.log(FitbitChallenges);
+    const challenge = await FitbitChallenges.deployed();
+    challenge.poseChallenge.call(12345, "for human rights", 1000, 1529781437, {from: this.accounts[0], gas: 300000});
+   // FitbitChallenges.poseChallenge(12345, "for human rights", 1000, 1529781437, {from: this.accounts[0], gas: 300000});
 
   }
 
