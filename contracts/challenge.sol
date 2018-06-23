@@ -40,11 +40,43 @@ contract FitbitChallenges {
         address _companyaddress,
         string _cause,
         uint _data,
-        uint64 _deadline,
-        returns(uint)
+        uint64 _deadline    
     )
+    returns(uint)
     {
         fitbitChallenges.push(Challenge(msg.sender,_companyaddress, _deadline, _cause,  _data, ChallengeStatus.CREATED, msg.value));
         return fitbitChallenges.length - 1;
     }
+
+    function acceptChallenge(
+        uint _challengeId
+    )
+    {
+        fitbitChallenges[_challengeId].status =  ChallengeStatus.ACCEPTED;
+
+    }
+
+    function rejectChallenge(
+        uint _challengeId
+    )
+    {
+        fitbitChallenges[_challengeId].status =  ChallengeStatus.CANCELLED;
+    }
+
+    function fulfillChallenge(
+        uint _challengeId,
+        uint _data /** fitbit data will trigger this function*/
+    )
+    {
+        require( fitbitChallenges[_challengeId].status == ChallengeStatus.ACCEPTED);
+        require( _data > fitbitChallenges[_challengeId].data);
+        fitbitChallenges[_challengeId].company.transfer(fitbitChallenges[_challengeId].amount);
+        
+        /** TRANSFER TOKENS HERE */
+
+
+        fitbitChallenges[_challengeId].status =  ChallengeStatus.FULFILLED;
+
+    }
+
 }
