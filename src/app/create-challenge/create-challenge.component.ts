@@ -58,7 +58,7 @@ export class CreateChallengeComponent implements OnInit {
     const startDate = new Date(this.startDateFormGroup.getRawValue().thirdCtrl);
     const endDate = new Date(this.endDateFormGroup.getRawValue().fourthCtrl);
 
-    console.log(startDate);
+    await this.challengeService.createChallenge(null);
   }
 
 }
