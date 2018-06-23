@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ChallengeService} from '../challenge.service';
+import {CreateChallengeRequest} from "../create.challenge.request";
 
 
 @Component({
@@ -16,7 +18,8 @@ export class CreateChallengeComponent implements OnInit {
   endDateFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private challengeService: ChallengeService) {
 
   }
 
@@ -47,6 +50,15 @@ export class CreateChallengeComponent implements OnInit {
     this.fifthFormGroup = this._formBuilder.group({
       fifthCtrl: ['', Validators.required]
     });
+  }
+
+  async submitChallenge() {
+    const targetSteps = this.stepsFormGroup.getRawValue().firstCtrl;
+    const amount = this.stepsFormGroup.getRawValue().secondCtrl;
+    const startDate = new Date(this.startDateFormGroup.getRawValue().thirdCtrl);
+    const endDate = new Date(this.endDateFormGroup.getRawValue().fourthCtrl);
+
+    console.log(startDate);
   }
 
 }

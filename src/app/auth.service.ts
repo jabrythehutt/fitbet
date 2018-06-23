@@ -17,7 +17,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: environment.auth0Audience,
     redirectUri: 'http://localhost:4200',
-    scope: 'openid'
+    scope: 'openid email profile'
   });
 
   constructor(public router: Router) {}
@@ -28,6 +28,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log(authResult);
         window.location.hash = '';
         this.setSession(authResult);
         // this.router.navigate(['/home']);
