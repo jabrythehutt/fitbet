@@ -43,7 +43,7 @@ contract FitbitChallenges {
     ) public
     returns(uint)
     {
-        fitbitChallenges.push(Challenge(msg.sender,_companyaddress, _deadline, _cause,  _data, ChallengeStatus.CREATED, 0));
+        fitbitChallenges.push(Challenge(msg.sender, _companyaddress, _deadline, _cause, _data, ChallengeStatus.CREATED, 0));
         return fitbitChallenges.length - 1;
     }
 

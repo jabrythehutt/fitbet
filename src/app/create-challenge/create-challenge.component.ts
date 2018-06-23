@@ -28,13 +28,14 @@ export class CreateChallengeComponent implements OnInit {
       firstCtrl: ['', Validators.required]
     });
 
-    this.stepsFormGroup.setValue({firstCtrl: 112345});
+    this.stepsFormGroup.setValue({firstCtrl: 20});
 
     this.amountFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
 
-    this.amountFormGroup.setValue({secondCtrl: 10000000});
+    // 1e16 = 0.01ETH
+    this.amountFormGroup.setValue({secondCtrl: 1e16});
     this.startDateFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
@@ -45,7 +46,9 @@ export class CreateChallengeComponent implements OnInit {
     this.endDateFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required]
     });
-    const then = new Date(now.getTime() + (2 * 60 * 1000));
+
+    // Add 1 minute from now
+    const then = new Date(now.getTime() + (60 * 1000));
     this.endDateFormGroup.setValue({fourthCtrl: then.toISOString().substring(0, 16)});
     this.fifthFormGroup = this._formBuilder.group({
       fifthCtrl: ['', Validators.required]
@@ -53,12 +56,17 @@ export class CreateChallengeComponent implements OnInit {
   }
 
   async submitChallenge() {
-    const targetSteps = this.stepsFormGroup.getRawValue().firstCtrl;
-    const amount = this.stepsFormGroup.getRawValue().secondCtrl;
+    const numberOfSteps = this.stepsFormGroup.getRawValue().firstCtrl;
+    const value = this.stepsFormGroup.getRawValue().secondCtrl;
     const startDate = new Date(this.startDateFormGroup.getRawValue().thirdCtrl);
     const endDate = new Date(this.endDateFormGroup.getRawValue().fourthCtrl);
-
-    await this.challengeService.createChallenge(null);
+    const request: CreateChallengeRequest = {
+      startDate,
+      endDate,
+      numberOfSteps,
+      value
+    };
+    await this.challengeService.createChallenge(request);
   }
 
 }
