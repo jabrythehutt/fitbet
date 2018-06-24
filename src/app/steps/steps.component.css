@@ -7,7 +7,14 @@
   text-align: center;
 }
 
+.completed-title {
+  font-size: 30px;
+  text-align: center;
+  color: green;
+}
+
 .complete-message {
   text-align: center;
   font-size: 20px;
+  color: green;
 }

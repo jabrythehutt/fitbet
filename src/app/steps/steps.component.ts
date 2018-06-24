@@ -54,7 +54,7 @@ export class StepsComponent implements OnInit, OnDestroy {
       if (!this.complete) {
         this.steps = Math.round(Math.random() * 10 ) + this.targetSteps;
       }
-    }, 30000 );
+    }, 20000 );
     const startDate = new Date();
     while (this.running && !this.complete) {
       this.steps = await this.fitbitService.getSteps(startDate, startDate);
@@ -74,7 +74,7 @@ export class StepsComponent implements OnInit, OnDestroy {
   }
 
   get completeMessage() {
-    return `Completed transferring ${this.challengeRequest.value} Wei to ${this.challengeRequest.beneficiaryName} (${this.web3Service.accounts[0]})`;
+    return `Completed transferring ${this.challengeRequest.value / 1e18} ETH to ${this.challengeRequest.beneficiaryName} (${this.web3Service.accounts[0]})`;
   }
 
 }
