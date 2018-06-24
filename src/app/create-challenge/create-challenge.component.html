@@ -15,7 +15,7 @@
   </mat-step>
   <mat-step [stepControl]="amountFormGroup">
     <form [formGroup]="amountFormGroup">
-      <ng-template matStepLabel>Set your bet amount</ng-template>
+      <ng-template matStepLabel>Set your bet amount (Wei)</ng-template>
       <mat-form-field>
         <input matInput placeholder="Bet amount" formControlName="secondCtrl" required type="number">
       </mat-form-field>
