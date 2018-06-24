@@ -1,7 +1,7 @@
 <mat-toolbar>
   <span>{{title}}</span>
   <span class="fill-space"></span>
-  <button mat-button color="warn" class="sign-out" (click)="signOut()">
+  <button mat-button color="warn" class="sign-out" (click)="signOut()" *ngIf="authenticated">
     Sign out
   </button>
 </mat-toolbar>

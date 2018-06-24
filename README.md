@@ -6,9 +6,14 @@ Bet Eth on the number of steps you intend to record with your Fitbit device
 
 1. `npm install`
 
+## Running the app
+
+1. `npm run launch-ganache`
+2. In a new terminal: `npm run start`
+
 ## Running tests
 
-1. `ganache-cli`
+1. `npm run launch-ganache`
 2. In a new terminal: `npm run truffle-test`
 
 ## Configuration

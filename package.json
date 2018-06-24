@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ngw serve",
+    "launch-ganache": "ganache-cli",
+    "truffle": "truffle compile && truffle migrate && truffle deploy",
+    "start": "npm run truffle && ngw serve",
     "build": "ngw build",
     "test": "ngw test",
     "lint": "ngw lint",
