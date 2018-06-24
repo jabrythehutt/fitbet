@@ -1,7 +1,7 @@
 <!--<mat-toolbar>
   Place your bet
 </mat-toolbar>-->
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper *ngIf="!submitted">
   <mat-step [stepControl]="stepsFormGroup">
     <form [formGroup]="stepsFormGroup">
       <ng-template matStepLabel>Set the step target</ng-template>
@@ -56,3 +56,6 @@
     </div>
   </mat-step>
 </mat-vertical-stepper>
+<div *ngIf="submitted">
+  <app-steps></app-steps>
+</div>

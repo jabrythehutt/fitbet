@@ -10,9 +10,11 @@ const fitbitChallengesArtifacts = require('../../build/contracts/FitbitChallenge
 })
 export class ChallengeService {
   accounts: string[];
+  defaultGas: number;
 
   constructor(private challengeService: ChallengeService, private web3Service: Web3Service) {
     this.watchAccount();
+    this.defaultGas = 3000000;
 
   }
 
@@ -24,12 +26,19 @@ export class ChallengeService {
 
   async createChallenge(request: CreateChallengeRequest) {
     const FitbitChallenges = await this.web3Service.artifactsToContract(fitbitChallengesArtifacts);
-    console.log(FitbitChallenges);
     const challenge = await FitbitChallenges.deployed();
     const challengeIndexResult = await challenge.
-    poseChallenge.call(this.accounts[0], 'for human rights', 1000, 1529781437, {from: this.accounts[0], gas: 300000});
+    poseChallenge(
+      this.accounts[0],
+      'Charity1',
+      request.numberOfSteps,
+      request.endDate.getTime(),
+      request.value,
+      {from: this.accounts[0], gas: this.defaultGas});
     const challengeIndex = challengeIndexResult.toNumber();
 
+    // Accept the challenge immediately since we are running the app as the "company"
+    await challenge.acceptChallenge(challengeIndex, {from: this.accounts[0], gas: this.defaultGas, value: request.value});
 
   }
 

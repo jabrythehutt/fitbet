@@ -14,11 +14,13 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { StepsComponent } from './steps/steps.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateChallengeComponent
+    CreateChallengeComponent,
+    StepsComponent
   ],
   imports: [
     MatButtonModule,

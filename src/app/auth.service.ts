@@ -17,7 +17,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: environment.auth0Audience,
     redirectUri: 'http://localhost:4200',
-    scope: 'openid email profile'
+    scope: 'activity openid email profile'
   });
 
   constructor(public router: Router) {}
@@ -55,6 +55,14 @@ export class AuthService {
     location.reload();
     // Go back to the home route
    //  this.router.navigate(['/']);
+  }
+
+  getAccessToken(): string {
+    return localStorage.getItem('access_token');
+  }
+
+  getIdToken(): string {
+    return localStorage.getItem('id_token');
   }
 
   public isAuthenticated(): boolean {

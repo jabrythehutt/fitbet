@@ -17,6 +17,7 @@ export class CreateChallengeComponent implements OnInit {
   startDateFormGroup: FormGroup;
   endDateFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
+  submitted: boolean;
 
   constructor(private _formBuilder: FormBuilder,
               private challengeService: ChallengeService) {
@@ -57,7 +58,7 @@ export class CreateChallengeComponent implements OnInit {
 
   async submitChallenge() {
     const numberOfSteps = this.stepsFormGroup.getRawValue().firstCtrl;
-    const value = this.stepsFormGroup.getRawValue().secondCtrl;
+    const value = this.amountFormGroup.getRawValue().secondCtrl;
     const startDate = new Date(this.startDateFormGroup.getRawValue().thirdCtrl);
     const endDate = new Date(this.endDateFormGroup.getRawValue().fourthCtrl);
     const request: CreateChallengeRequest = {
@@ -66,6 +67,7 @@ export class CreateChallengeComponent implements OnInit {
       numberOfSteps,
       value
     };
+    this.submitted = true;
     await this.challengeService.createChallenge(request);
   }
 
