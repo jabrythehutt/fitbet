@@ -15,12 +15,14 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { StepsComponent } from './steps/steps.component';
+import { CompleteComponent } from './complete/complete.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateChallengeComponent,
     StepsComponent,
+    CompleteComponent,
   ],
   imports: [
     MatProgressSpinnerModule,

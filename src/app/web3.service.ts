@@ -9,7 +9,7 @@ const Web3 = require('web3');
 })
 export class Web3Service {
   private web3: any;
-  private accounts: string[];
+  accounts: string[];
   public ready = false;
   public accountsObservable = new Subject<string[]>();
 

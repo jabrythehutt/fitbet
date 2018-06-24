@@ -38,7 +38,7 @@ export class FitbitService {
         resolve(count);
       }, err => {
         console.log(err);
-        reject(err);
+        resolve(0);
       });
     });
 

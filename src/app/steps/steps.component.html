@@ -1,4 +1,7 @@
 <div *ngIf="steps">
-  <h1>Steps: {{steps}} / {{targetSteps}}</h1>
-  <mat-progress-spinner [diameter]="500" mode="determinate" color="primary" [value]="100 * steps/targetSteps" *ngIf="running"></mat-progress-spinner>
+  <div class="center steps-label" >
+    <h1 *ngIf="!complete">{{steps}} / {{targetSteps}} steps</h1>
+  </div>
+  <mat-progress-spinner *ngIf="targetSteps" class="center" [diameter]="progressWidth" mode="determinate" color="primary" [value]="100 * steps/targetSteps"></mat-progress-spinner>
+  <p *ngIf="complete">{{completeMessage}}</p>
 </div>
