@@ -17,7 +17,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: environment.auth0Audience,
     redirectUri: 'http://localhost:4200',
-    scope: 'activity openid email profile'
+    scope: 'activity openid email profile location heartrate settings sleep social weight'
   });
 
   constructor(public router: Router) {}
@@ -45,6 +45,11 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('user_id', authResult.idTokenPayload.sub.replace('fitbit|', ''));
+  }
+
+  public getUserId(): string {
+    return localStorage.getItem('user_id');
   }
 
   public logout(): void {

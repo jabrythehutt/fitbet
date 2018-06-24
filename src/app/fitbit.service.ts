@@ -18,7 +18,7 @@ export class FitbitService {
 
   getRequestHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.authService.getIdToken()}`
+      Authorization: `Bearer ${this.authService.getAccessToken()}`
     });
   }
 
@@ -26,7 +26,8 @@ export class FitbitService {
     const start = this.toDayString(startDate);
     const end = this.toDayString(endDate);
     const headers = this.getRequestHeaders();
-    const timeSeriesUrl = `${environment.fitbitApiBase}/1/user/-/activities/steps/date/${start}/${end}.json`;
+   // const timeSeriesUrl = `${environment.fitbitApiBase}/1/user/-/activities/steps/date/${start}/${end}.json`;
+    const timeSeriesUrl = `${environment.fitbitApiBase}/1/user/-/profile.json`;
     return new Promise<number>((resolve, reject) => {
       this.httpClient.get(timeSeriesUrl, {headers}).subscribe(response => {
         console.log(response);
