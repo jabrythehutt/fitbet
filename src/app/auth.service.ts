@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import * as auth0 from 'auth0-js';
+// import * as auth0 from 'auth0-js';
 import {parse as parseQuery} from 'querystring';
 import {environment} from '../environments/environment';
 
@@ -12,14 +12,14 @@ import {environment} from '../environments/environment';
 })
 export class AuthService {
 
-  auth0 = new auth0.WebAuth({
+  /*auth0 = new auth0.WebAuth({
     clientID: environment.auth0ClientId,
     domain: environment.auth0Domain,
     responseType: 'token id_token',
     audience: environment.auth0Audience,
     redirectUri: 'http://localhost:4200',
     scope: 'activity heartrate location nutrition profile settings sleep social weight'
-  });
+  });*/
 
   constructor(public router: Router) {}
 
@@ -57,8 +57,6 @@ export class AuthService {
   }
 
   private setSession(authResult): void {
-
-    console.log("Setting session: "+ authResult);
     // Set the time that the Access Token will expire at
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('expires_at', authResult.expiresAt);

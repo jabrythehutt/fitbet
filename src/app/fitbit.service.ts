@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthService} from './auth.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
+import {StepsResponse} from './steps.response';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,12 @@ export class FitbitService {
     const timeSeriesUrl = `${environment.fitbitApiBase}/1/user/-/activities/steps/date/${start}/${end}.json`;
     // const timeSeriesUrl = `${environment.fitbitApiBase}/1/user/-/profile.json`;
     return new Promise<number>((resolve, reject) => {
-      this.httpClient.get(timeSeriesUrl, {headers}).subscribe(response => {
-        console.log(response);
-        resolve(1);
+      this.httpClient.get(timeSeriesUrl, {headers}).subscribe((response: StepsResponse) => {
+        let count = 0;
+        for (const steps of response['activities-steps']) {
+          count += parseInt(steps.value, 10);
+        }
+        resolve(count);
       }, err => {
         console.log(err);
       });
