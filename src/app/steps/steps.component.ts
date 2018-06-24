@@ -48,6 +48,7 @@ export class StepsComponent implements OnInit, OnDestroy {
 
   async initialiseSteps() {
 
+    // Add a demo safety timeout just in case the Fitbit API doesn't return the data on time
     setTimeout(() => {
 
       if (!this.complete) {
@@ -61,7 +62,7 @@ export class StepsComponent implements OnInit, OnDestroy {
         this.running = false;
         await this.challengeService.completeChallenge({numberOfSteps: this.steps, challengeIndex: this.challengeIndex});
       }
-      await this.sleep(20000);
+      await this.sleep(10000);
     }
 
 

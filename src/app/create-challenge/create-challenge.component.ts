@@ -79,7 +79,7 @@ export class CreateChallengeComponent implements OnInit {
       console.log(err);
     }
     this.stepsFormGroup.setValue({firstCtrl: currentSteps + 20});
-    this.beneficiaryFormGroup.setValue({beneficiaryControl: 'Save the dogs'});
+    this.beneficiaryFormGroup.setValue({beneficiaryControl: 'Save the whales'});
   }
 
   async submitChallenge() {
