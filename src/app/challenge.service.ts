@@ -34,8 +34,7 @@ export class ChallengeService {
       request.beneficiaryName,
       request.numberOfSteps,
       request.endDate.getTime(),
-      request.value,
-      {from: this.accounts[0], gas: this.defaultGas});
+      request.value, {from: this.accounts[0], gas: this.defaultGas});
     const challengeIndex = challengeIndexResult.toNumber();
 
     // Accept the challenge immediately since we are running the app as the "company"

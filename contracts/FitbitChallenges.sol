@@ -41,11 +41,11 @@ contract FitbitChallenges {
     uint _challengeId
   )public payable
   {
-    require(_challengeId < fitbitChallenges.length);
-    require(msg.value == fitbitChallenges[_challengeId].amount);
-    require(fitbitChallenges[_challengeId].status == ChallengeStatus.CREATED);
+     require(_challengeId < fitbitChallenges.length);
+     require(msg.value == fitbitChallenges[_challengeId].amount);
+     require(fitbitChallenges[_challengeId].status == ChallengeStatus.CREATED);
     // Only the company can accept the challenge
-    require(msg.sender == fitbitChallenges[_challengeId].company);
+     require(msg.sender == fitbitChallenges[_challengeId].company);
     fitbitChallenges[_challengeId].status = ChallengeStatus.ACCEPTED;
   }
 
@@ -66,7 +66,7 @@ contract FitbitChallenges {
     require(_challengeId < fitbitChallenges.length);
     // Make sure that only the company can mark a challenge as having been completed
     require(msg.sender == fitbitChallenges[_challengeId].company);
-    require( fitbitChallenges[_challengeId].status == ChallengeStatus.ACCEPTED);
+    // require( fitbitChallenges[_challengeId].status == ChallengeStatus.ACCEPTED);
     require( _data >= fitbitChallenges[_challengeId].data);
     fitbitChallenges[_challengeId].company.transfer(fitbitChallenges[_challengeId].amount);
     fitbitChallenges[_challengeId].status = ChallengeStatus.FULFILLED;
