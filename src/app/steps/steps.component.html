@@ -1,3 +1,4 @@
 <div *ngIf="steps">
-  Steps: {{steps}}
+  <h1>Steps: {{steps}} / {{targetSteps}}</h1>
+  <mat-progress-spinner [diameter]="500" mode="determinate" color="primary" [value]="100 * steps/targetSteps" *ngIf="running"></mat-progress-spinner>
 </div>

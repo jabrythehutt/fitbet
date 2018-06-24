@@ -1,5 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FitbitService} from "../fitbit.service";
+import {ChallengeService} from "../challenge.service";
 
 @Component({
   selector: 'app-steps',
@@ -9,7 +10,14 @@ import {FitbitService} from "../fitbit.service";
 export class StepsComponent implements OnInit, OnDestroy {
   steps: number;
   running: boolean;
-  constructor(private fitbitService: FitbitService) { }
+
+  @Input()
+  targetSteps: number;
+
+  @Input()
+  challengeIndex: number;
+
+  constructor(private fitbitService: FitbitService, private challengeService: ChallengeService) { }
 
   ngOnInit() {
     this.running = true;
@@ -31,6 +39,10 @@ export class StepsComponent implements OnInit, OnDestroy {
     const startDate = new Date();
     while (this.running) {
       this.steps = await this.fitbitService.getSteps(startDate, startDate);
+      if (this.steps >= this.targetSteps) {
+        this.running = false;
+        await this.challengeService.completeChallenge({numberOfSteps: this.steps, challengeIndex: this.challengeIndex});
+      }
       await this.sleep(20000);
     }
 

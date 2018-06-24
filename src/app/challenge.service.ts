@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CreateChallengeRequest} from './create.challenge.request';
 import {Web3Service} from './web3.service';
+import {CompleteChallengeRequest} from "./complete.challenge.request";
 
 declare let require: any;
 const fitbitChallengesArtifacts = require('../../build/contracts/FitbitChallenges.json');
@@ -24,7 +25,7 @@ export class ChallengeService {
     });
   }
 
-  async createChallenge(request: CreateChallengeRequest) {
+  async createChallenge(request: CreateChallengeRequest): Promise<number> {
     const FitbitChallenges = await this.web3Service.artifactsToContract(fitbitChallengesArtifacts);
     const challenge = await FitbitChallenges.deployed();
     const challengeIndexResult = await challenge.
@@ -40,6 +41,14 @@ export class ChallengeService {
     // Accept the challenge immediately since we are running the app as the "company"
     await challenge.acceptChallenge(challengeIndex, {from: this.accounts[0], gas: this.defaultGas, value: request.value});
 
+    return challengeIndex;
+
+  }
+
+  async completeChallenge(request: CompleteChallengeRequest) {
+    const FitbitChallenges = await this.web3Service.artifactsToContract(fitbitChallengesArtifacts);
+    const challenge = await FitbitChallenges.deployed();
+    await challenge.fulfillChallenge(request.challengeIndex, request.numberOfSteps, {from: this.accounts[0], gas: this.defaultGas});
   }
 
 }

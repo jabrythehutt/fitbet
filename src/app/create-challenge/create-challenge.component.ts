@@ -13,6 +13,7 @@ import {FitbitService} from "../fitbit.service";
 export class CreateChallengeComponent implements OnInit {
 
 
+  targetSteps: number;
   stepsFormGroup: FormGroup;
   amountFormGroup: FormGroup;
   startDateFormGroup: FormGroup;
@@ -84,7 +85,11 @@ export class CreateChallengeComponent implements OnInit {
       value
     };
     this.submitted = true;
+    this.targetSteps = request.numberOfSteps;
     await this.challengeService.createChallenge(request);
+
+
+
   }
 
 }

@@ -8,7 +8,7 @@ import {RouterModule} from '@angular/router';
 import {
   MatButtonModule,
   MatFormFieldModule,
-  MatInputModule,
+  MatInputModule, MatProgressSpinnerModule,
   MatStepperModule,
   MatToolbarModule
 } from '@angular/material';
@@ -20,9 +20,10 @@ import { StepsComponent } from './steps/steps.component';
   declarations: [
     AppComponent,
     CreateChallengeComponent,
-    StepsComponent
+    StepsComponent,
   ],
   imports: [
+    MatProgressSpinnerModule,
     MatButtonModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
