@@ -10,7 +10,7 @@ import {AuthService} from './auth.service';
 export class AppComponent implements OnInit {
   title = 'Fit Bet';
   constructor(private authService: AuthService) {
-    this.authService.handleAuthentication();
+     this.authService.handleAuthentication();
   }
 
   ngOnInit(): void {

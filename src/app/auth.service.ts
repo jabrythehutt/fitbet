@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
+import {parse as parseQuery} from 'querystring';
 import {environment} from '../environments/environment';
 
 (window as any).global = window;
@@ -17,16 +18,18 @@ export class AuthService {
     responseType: 'token id_token',
     audience: environment.auth0Audience,
     redirectUri: 'http://localhost:4200',
-    scope: 'activity openid email profile location heartrate settings sleep social weight'
+    scope: 'activity heartrate location nutrition profile settings sleep social weight'
   });
 
   constructor(public router: Router) {}
 
   public login(): void {
-    this.auth0.authorize();
+    const redirectUrl = `${location.protocol}//${location.host}`;
+    window.location.href =
+      `https://www.fitbit.com/oauth2/authorize?prompt=consent&response_type=token&redirect_uri=${redirectUrl}&login%2Fcallback&scope=profile%20activity%20heartrate%20location%20nutrition%20settings%20sleep%20social%20weight&state=5ckLbx_oArnM-b3qfd6ngUJYQ0i4zem0&client_id=22D2PP`
   }
   public handleAuthentication(): void {
-    this.auth0.parseHash((err, authResult) => {
+    /*this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         console.log(authResult);
         window.location.hash = '';
@@ -36,26 +39,34 @@ export class AuthService {
         // this.router.navigate(['/home']);
         console.log(err);
       }
-    });
+    });*/
+
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const queryParams = parseQuery(hash);
+      const accessToken = queryParams.access_token;
+      const expiresIn = queryParams.expires_in;
+      const expiresAt = new Date().getTime() + parseInt(expiresIn as string, 10) * 1000;
+      this.setSession({
+        accessToken,
+        expiresAt
+      });
+    }
+
+    window.location.hash = '';
   }
 
   private setSession(authResult): void {
-    // Set the time that the Access Token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('user_id', authResult.idTokenPayload.sub.replace('fitbit|', ''));
-  }
 
-  public getUserId(): string {
-    return localStorage.getItem('user_id');
+    console.log("Setting session: "+ authResult);
+    // Set the time that the Access Token will expire at
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('expires_at', authResult.expiresAt);
   }
 
   public logout(): void {
     // Remove tokens and expiry time from localStorage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     location.reload();
     // Go back to the home route
@@ -64,10 +75,6 @@ export class AuthService {
 
   getAccessToken(): string {
     return localStorage.getItem('access_token');
-  }
-
-  getIdToken(): string {
-    return localStorage.getItem('id_token');
   }
 
   public isAuthenticated(): boolean {

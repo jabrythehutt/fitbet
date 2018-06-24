@@ -6,12 +6,12 @@ import {ContractRequest} from './contract.request';
 // const fitbitChallengesArtifacts = require('../../build/contracts/FitbitChallenges.json');
 
 export const handler: APIGatewayProxyHandler = async (event) => {
-
   if (event.body) {
     const contractRequest = JSON.parse(event.body) as ContractRequest;
   }
-
-  const endDate = new Date(new Date().getTime() + (60 * 1000));
+  const timestamp = new Date().getTime();
+  const startDate = new Date(timestamp);
+  const endDate = new Date(timestamp + (60 * 1000));
   return {
     statusCode: 200,
     headers: {
@@ -20,7 +20,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     },
     body: JSON.stringify({
       targetSteps: 20,
-      endDate
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
     })
   };
 
