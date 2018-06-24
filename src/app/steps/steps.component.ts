@@ -31,7 +31,7 @@ export class StepsComponent implements OnInit, OnDestroy {
     const startDate = new Date();
     while (this.running) {
       this.steps = await this.fitbitService.getSteps(startDate, startDate);
-      await this.sleep(2000);
+      await this.sleep(20000);
     }
 
   }

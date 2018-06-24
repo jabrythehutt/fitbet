@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChallengeService} from '../challenge.service';
 import {CreateChallengeRequest} from "../create.challenge.request";
+import {FitbitService} from "../fitbit.service";
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CreateChallengeComponent implements OnInit {
   submitted: boolean;
 
   constructor(private _formBuilder: FormBuilder,
-              private challengeService: ChallengeService) {
+              private challengeService: ChallengeService,
+              private fitbitService: FitbitService) {
 
   }
 
@@ -29,7 +31,7 @@ export class CreateChallengeComponent implements OnInit {
       firstCtrl: ['', Validators.required]
     });
 
-    this.stepsFormGroup.setValue({firstCtrl: 20});
+
 
     this.amountFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
@@ -54,6 +56,20 @@ export class CreateChallengeComponent implements OnInit {
     this.fifthFormGroup = this._formBuilder.group({
       fifthCtrl: ['', Validators.required]
     });
+
+    this.setDefaultValues();
+  }
+
+  async setDefaultValues() {
+    const date = new Date();
+    let currentSteps = 0;
+    try {
+      currentSteps = await this.fitbitService.getSteps(date, date);
+    } catch (err) {
+      // Just in case too many API calls are made
+      console.log(err);
+    }
+    this.stepsFormGroup.setValue({firstCtrl: currentSteps + 20});
   }
 
   async submitChallenge() {
