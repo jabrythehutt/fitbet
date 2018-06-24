@@ -13,6 +13,18 @@
       </div>-->
     </form>
   </mat-step>
+  <mat-step [stepControl]="beneficiaryFormGroup">
+    <form [formGroup]="beneficiaryFormGroup">
+      <ng-template matStepLabel>Select your charity</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Beneficiary" formControlName="beneficiaryControl" required>
+      </mat-form-field>
+      <!--      <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>-->
+    </form>
+  </mat-step>
   <mat-step [stepControl]="amountFormGroup">
     <form [formGroup]="amountFormGroup">
       <ng-template matStepLabel>Set your bet amount (Wei)</ng-template>

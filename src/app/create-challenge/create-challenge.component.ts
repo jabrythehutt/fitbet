@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChallengeService} from '../challenge.service';
-import {CreateChallengeRequest} from "../create.challenge.request";
-import {FitbitService} from "../fitbit.service";
+import {CreateChallengeRequest} from '../create.challenge.request';
+import {FitbitService} from '../fitbit.service';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class CreateChallengeComponent implements OnInit {
   startDateFormGroup: FormGroup;
   endDateFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
+  beneficiaryFormGroup: FormGroup;
   submitted: boolean;
   challengeIndex: number;
   challengeRequest: CreateChallengeRequest;
@@ -60,6 +61,11 @@ export class CreateChallengeComponent implements OnInit {
       fifthCtrl: ['', Validators.required]
     });
 
+    this.beneficiaryFormGroup = this._formBuilder.group({
+      beneficiaryControl: ['', Validators.required]
+    });
+
+
     this.setDefaultValues();
   }
 
@@ -73,6 +79,7 @@ export class CreateChallengeComponent implements OnInit {
       console.log(err);
     }
     this.stepsFormGroup.setValue({firstCtrl: currentSteps + 20});
+    this.beneficiaryFormGroup.setValue({beneficiaryControl: 'Save the dogs'});
   }
 
   async submitChallenge() {
@@ -80,7 +87,9 @@ export class CreateChallengeComponent implements OnInit {
     const value = this.amountFormGroup.getRawValue().secondCtrl;
     const startDate = new Date(this.startDateFormGroup.getRawValue().thirdCtrl);
     const endDate = new Date(this.endDateFormGroup.getRawValue().fourthCtrl);
+    const beneficiary = this.beneficiaryFormGroup.getRawValue().beneficiaryControl;
     this.challengeRequest = {
+      beneficiaryName: beneficiary,
       startDate,
       endDate,
       numberOfSteps,

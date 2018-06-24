@@ -65,7 +65,7 @@ export class StepsComponent implements OnInit, OnDestroy {
   }
 
   get completeMessage() {
-    return `Completed transferring ${this.challengeRequest.value} Wei to ${this.web3Service.accounts[0]}`;
+    return `Completed transferring ${this.challengeRequest.value} Wei to ${this.challengeRequest.beneficiaryName} (${this.web3Service.accounts[0]})`;
   }
 
 }

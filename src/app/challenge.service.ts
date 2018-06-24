@@ -31,7 +31,7 @@ export class ChallengeService {
     const challengeIndexResult = await challenge.
     poseChallenge(
       this.accounts[0],
-      'Charity1',
+      request.beneficiaryName,
       request.numberOfSteps,
       request.endDate.getTime(),
       request.value,
